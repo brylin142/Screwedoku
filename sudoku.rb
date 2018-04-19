@@ -1,3 +1,4 @@
+require 'byebug'
 require_relative "board"
 require 'colorize'
 
@@ -10,7 +11,7 @@ class SudokuGame
   end
 
   def initialize(board)
-    @board = [[]]
+    @board = board
   end
 
   def method_missing(method_name, *args)
@@ -39,6 +40,14 @@ class SudokuGame
       end
     end
     pos
+  end
+
+  def parse_val(str)
+    Integer(str)
+  end
+
+  def parse_pos(str)
+    str.split(",").map(&:to_i)
   end
 
   def get_val
@@ -85,3 +94,4 @@ end
 
 
 game = SudokuGame.from_file("puzzles/sudoku1.txt")
+game.run
